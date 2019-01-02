@@ -57,40 +57,81 @@ function moveForward() {
   if (roverActualDirection === "N") {
     rover.y = rover.y - 1;
   } else if (roverActualDirection === "W") {
-    rover.x = rover.x-1;
+    rover.x = rover.x - 1;
   } else if (roverActualDirection === "S") {
-    rover.y = rover.y+1;
+    rover.y = rover.y + 1;
   } else if (roverActualDirection === "E") {
-    rover.x = rover.x+1;
+    rover.x = rover.x + 1;
   }
 
   console.log("moveForward was called");
 }
 
+// Function which moves the rover backwards
+function moveBackwards() {
+  if (roverActualDirection === "N") {
+    rover.y = rover.y + 1;
+  } else if (roverActualDirection === "W") {
+    rover.x = rover.x + 1;
+  } else if (roverActualDirection === "S") {
+    rover.y = rover.y - 1;
+  } else if (roverActualDirection === "E") {
+    rover.x = rover.x - 1;
+  }
+
+  console.log("moveBackwards was called");
+}
+
 // Our travel log which is currently an empty array. Later on there will be stored values of rover's path.
 var travelLog = [];
+
+// Declaring alert message, if the rover wants to go off the grid
+var alertMessage = "You went almost off the grid! Turn your rover oder way!";
 
 // Commands function. If we write "f" as an argument, the moveForward() function will be called, etc..
 function commands(string) {
   var stringArr = string.split("");
   for (var i = 0; i < stringArr.length; i++) {
+    
     if (stringArr[i].toUpperCase() === "F") {
       moveForward();
     } else if (stringArr[i].toUpperCase() === "R") {
       turnRight();
     } else if (stringArr[i].toUpperCase() === "L") {
       turnLeft();
+    } else if (stringArr[i].toUpperCase() === "B")  {
+      moveBackwards();
+    } else {
+      console.log('"' + stringArr[i] + '"' + ' is false input. Please write only valid inputs "f", "b", "r" or "l".')
     }
-
-    travelLog.push(grid[rover.y][rover.x])
+    
+    // In case our rover would went out of the grid, this condition will stop the rover!
+    if (rover.y < 0) {
+      rover.y = rover.y + 1;
+      console.log(alertMessage);
+    } else if (rover.x < 0) {
+      rover.x = rover.x + 1;
+      console.log(alertMessage);
+    } else if (rover.y > 9) {
+      rover.y = rover.y - 1;
+      console.log(alertMessage);
+    } else if (rover.x > 9) {
+      rover.x = rover.x - 1;
+      console.log(alertMessage);
+    }
+    
+    travelLog.push(grid[rover.y][rover.x]);    
   }
 }
 
+
+
 // Please type your directions and moves as commands function arguments: eg. commands("rfrflr")
 // "f" stands for moveForward
+// "b" stands for backwards
 // "r" stands for turnRight
 // "l" stands for turnLeft
 
-commands("rffRfflFrffrflf");
+commands("rfflfrrflffffvffffrfa");
 
 console.log(travelLog);
