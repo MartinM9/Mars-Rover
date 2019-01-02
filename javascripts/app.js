@@ -74,11 +74,11 @@ var travelLog = [];
 function commands(string) {
   var stringArr = string.split("");
   for (var i = 0; i < stringArr.length; i++) {
-    if (stringArr[i] === "f") {
+    if (stringArr[i].toUpperCase() === "F") {
       moveForward();
-    } else if (stringArr[i] === "r") {
+    } else if (stringArr[i].toUpperCase() === "R") {
       turnRight();
-    } else if (stringArr[i] === "l") {
+    } else if (stringArr[i].toUpperCase() === "L") {
       turnLeft();
     }
 
@@ -91,6 +91,6 @@ function commands(string) {
 // "r" stands for turnRight
 // "l" stands for turnLeft
 
-commands("rffrfflfrffrflf");
+commands("rffRfflFrffrflf");
 
 console.log(travelLog);
